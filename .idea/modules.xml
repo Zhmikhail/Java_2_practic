@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DataReceiver/DataReceiver.iml" filepath="$PROJECT_DIR$/DataReceiver/DataReceiver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ExternalDataProcessor/ExternalDataProcessor.iml" filepath="$PROJECT_DIR$/ExternalDataProcessor/ExternalDataProcessor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/InternalDataProcessor/InternalDataProcessor.iml" filepath="$PROJECT_DIR$/InternalDataProcessor/InternalDataProcessor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diploma1.iml" filepath="$PROJECT_DIR$/diploma1.iml" />
+    </modules>
+  </component>
+</project>
