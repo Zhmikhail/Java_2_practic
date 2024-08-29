@@ -20,6 +20,7 @@ Internal
 
     java -cp "out\InternalDataProcessor;lib\jackson-core-2.12.3.jar;lib\jackson-databind-2.12.3.jar;lib\jackson-annotations-2.12.3.jar" Main 
 
+И в основном терминале, в котором будет работа, запускаем DataReceiver
 
-
+    java -cp "out\DataReceiver" Main 
 
