@@ -3,6 +3,7 @@ package transport.dto.request;
 import java.io.Serializable;
 
 public class StudentRequest implements Serializable {
+    private static final long serialVersionUID = 1L;  // Добавлен serialVersionUID
 
 
     private String name;

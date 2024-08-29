@@ -1,23 +1,29 @@
 package transport.dto.request;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 public class StudentRequest implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String name;
+    private int age;
     private String university;
-    private String specialty;
+    private String specialtyCode;
     private int diplomaNumber;
-    private String student;
 
-    public static StudentRequest fromByteArray(byte[] bytes) throws IOException {
-        try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-             ObjectInputStream ois = new ObjectInputStream(bis)) {
-            return (StudentRequest) ois.readObject();
-        } catch (ClassNotFoundException e) {
-            throw new IOException("Unable to deserialize request", e);
-        }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getUniversity() {
@@ -28,12 +34,12 @@ public class StudentRequest implements Serializable {
         this.university = university;
     }
 
-    public String getSpecialty() {
-        return specialty;
+    public String getSpecialtyCode() {
+        return specialtyCode;
     }
 
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
+    public void setSpecialtyCode(String specialtyCode) {
+        this.specialtyCode = specialtyCode;
     }
 
     public int getDiplomaNumber() {
@@ -42,13 +48,5 @@ public class StudentRequest implements Serializable {
 
     public void setDiplomaNumber(int diplomaNumber) {
         this.diplomaNumber = diplomaNumber;
-    }
-
-    public String getStudent() {
-        return student;
-    }
-
-    public void setStudent(String student) {
-        this.student = student;
     }
 }

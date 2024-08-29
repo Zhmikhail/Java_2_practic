@@ -1,20 +1,16 @@
 package transport.dto.response;
 
 import java.io.Serializable;
-import java.util.logging.Logger;
-import java.util.logging.Level;
+
 
 public class ValidationResponse implements Serializable {
-    private static final Logger logger = Logger.getLogger(ValidationResponse.class.getName());
+    private static final long serialVersionUID = 1L;
     private boolean valid;
     private String message;
 
     public ValidationResponse(boolean valid, String message) {
-        logger.log(Level.INFO, "Starting myMethod1");
         this.valid = valid;
         this.message = message;
-        logger.log(Level.INFO, message);
-        logger.log(Level.INFO, String. valueOf(valid));
     }
 
     public boolean isValid() {

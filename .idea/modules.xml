@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/DataMonitoring/DataMonitoring.iml" filepath="$PROJECT_DIR$/DataMonitoring/DataMonitoring.iml" />
       <module fileurl="file://$PROJECT_DIR$/DataReceiver/DataReceiver.iml" filepath="$PROJECT_DIR$/DataReceiver/DataReceiver.iml" />
       <module fileurl="file://$PROJECT_DIR$/ExternalDataProcessor/ExternalDataProcessor.iml" filepath="$PROJECT_DIR$/ExternalDataProcessor/ExternalDataProcessor.iml" />
       <module fileurl="file://$PROJECT_DIR$/InternalDataProcessor/InternalDataProcessor.iml" filepath="$PROJECT_DIR$/InternalDataProcessor/InternalDataProcessor.iml" />

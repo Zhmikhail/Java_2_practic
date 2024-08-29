@@ -7,12 +7,8 @@ import transport.dto.response.ValidationResponse;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.function.Supplier;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 
 public class SocketClientImpl implements SocketClient {
-    private static final Logger logger = Logger.getLogger(SocketClientImpl.class.getName());
     private final String host;
     private final int port;
 
@@ -24,19 +20,14 @@ public class SocketClientImpl implements SocketClient {
     @Override
     public ValidationResponse sendData(StudentRequest dataRequest) throws IOException {
         try (Socket socket = new Socket(host, port);
-             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-             ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-
+                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
             out.writeObject(dataRequest);
-            out.flush();  // Добавьте flush
-            logger.log(Level.INFO, "Request sent to server");
-
             ValidationResponse response = (ValidationResponse) in.readObject();
-            logger.log(Level.INFO, "Response received from server: " + response);
+            out.flush();
             return response;
 
         } catch (ClassNotFoundException e) {
-            logger.log(Level.SEVERE, "Exception during response deserialization: " + e.getMessage(), e);
             throw new IOException("Error in response deserialization", e);
         }
     }

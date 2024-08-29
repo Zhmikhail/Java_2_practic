@@ -1,6 +1,4 @@
 package exception;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 
 public class ValidationException extends Exception {
     public ValidationException(String message) {

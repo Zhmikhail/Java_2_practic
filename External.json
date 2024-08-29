@@ -1,107 +1,66 @@
-{
-  "university": "MIPT",
-  "payload": [
-    {
-      "id": 123,
-      "students": [
-        {
-          "student": "Max",
-          "diplomaNumber": 123123
-        },
-        {
-          "student": "Alex",
-          "diplomaNumber": 123124
-        },
-        {
-          "student": "John",
-          "diplomaNumber": 123125
-        },
-        {
-          "student": "Jane",
-          "diplomaNumber": 123126
-        },
-        {
-          "student": "Emma",
-          "diplomaNumber": 123127
-        }
-      ]
-    },
-    {
-      "id": 124,
-      "students": [
-        {
-          "student": "Nick",
-          "diplomaNumber": 124123
-        },
-        {
-          "student": "Tom",
-          "diplomaNumber": 124124
-        },
-        {
-          "student": "Jerry",
-          "diplomaNumber": 124125
-        },
-        {
-          "student": "Harry",
-          "diplomaNumber": 124126
-        },
-        {
-          "student": "Ron",
-          "diplomaNumber": 124127
-        }
-      ]
-    }
-  ],
-  "BMSTU": [
-    {
-      "id": 125,
-      "students": [
-        {
-          "student": "Anna",
-          "diplomaNumber": 125123
-        },
-        {
-          "student": "Elsa",
-          "diplomaNumber": 125124
-        },
-        {
-          "student": "Olaf",
-          "diplomaNumber": 125125
-        },
-        {
-          "student": "Kristoff",
-          "diplomaNumber": 125126
-        },
-        {
-          "student": "Sven",
-          "diplomaNumber": 125127
-        }
-      ]
-    },
-    {
-      "id": 126,
-      "students": [
-        {
-          "student": "Peter",
-          "diplomaNumber": 126123
-        },
-        {
-          "student": "Tony",
-          "diplomaNumber": 126124
-        },
-        {
-          "student": "Steve",
-          "diplomaNumber": 126125
-        },
-        {
-          "student": "Natasha",
-          "diplomaNumber": 126126
-        },
-        {
-          "student": "Bruce",
-          "diplomaNumber": 126127
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": 1,
+    "university": "MIPT",
+    "specialties": [
+      {
+        "specialtyCode": "02.01.01",
+        "students": [
+          {
+            "name": "Ivan",
+            "diplomaNumber": 12345
+          },
+          {
+            "name": "Sergey",
+            "diplomaNumber": 12346
+          }
+        ]
+      },
+      {
+        "specialtyCode": "02.02.03",
+        "students": [
+          {
+            "name": "Alexey",
+            "diplomaNumber": 12347
+          },
+          {
+            "name": "Pavel",
+            "diplomaNumber": 12348
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "university": "BMSTU",
+    "specialties": [
+      {
+        "specialtyCode": "01.01.01",
+        "students": [
+          {
+            "name": "Dmitry",
+            "diplomaNumber": 22345
+          },
+          {
+            "name": "r",
+            "diplomaNumber": 4
+          }
+        ]
+      },
+      {
+        "specialtyCode": "01.02.03",
+        "students": [
+          {
+            "name": "Roman",
+            "diplomaNumber": 22347
+          },
+          {
+            "name": "Oleg",
+            "diplomaNumber": 22348
+          }
+        ]
+      }
+    ]
+  }
+]

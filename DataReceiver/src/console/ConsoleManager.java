@@ -1,55 +1,34 @@
 package console;
 
-import service.StudentService;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import controller.StudentController;
+import java.util.Scanner;
 
 public class ConsoleManager {
-    private static final Logger logger = Logger.getLogger(ConsoleManager.class.getName());
-    private final StudentService studentService;
-    private final Console console;
+    private final StudentController studentController;
 
-    public ConsoleManager(StudentService studentService) {
-        logger.log(Level.SEVERE, "uno 1 ");
-        this.studentService = studentService;
-        this.console = new Console();
-        logger.log(Level.SEVERE, "uno  ");
+    public ConsoleManager(StudentController studentController) {
+        this.studentController = studentController;
     }
 
     public void start() {
-        logger.log(Level.SEVERE, "dos 1  ");
-        while (true) {
-            try {
-                logger.log(Level.SEVERE, "dos ");
-                String name = console.readLine(EnterType.ENTER_NAME.getEnter());
-                int age = console.readInt(EnterType.ENTER_AGE.getEnter());
-                String university = console.readLine(EnterType.ENTER_UNIVERSITY.getEnter());
-                String specialtyCode = console.readLine(EnterType.ENTER_SPECIALTY.getEnter());
-                int diplomaNumber = console.readInt(EnterType.ENTER_DIPLOMA.getEnter());
+        Scanner scanner = new Scanner(System.in);
 
-                studentService.processStudentData(name, age, university, specialtyCode, diplomaNumber);
-            } catch (Exception e) {
-                logger.log(Level.SEVERE, "Error processing input: " + e.getMessage(), e);
-            }
-        }
-    }
+        System.out.println("Enter student name:");
+        String name = scanner.nextLine();
 
-    private enum EnterType {
-        ENTER_NAME("Enter student name:"),
-        ENTER_AGE("Enter student age:"),
-        ENTER_UNIVERSITY("Enter university:"),
-        ENTER_SPECIALTY("Enter specialty code:"),
-        ENTER_DIPLOMA("Enter diploma number:");
+        System.out.println("Enter student age:");
+        int age = scanner.nextInt();
+        scanner.nextLine();
 
-        private final String enter;
+        System.out.println("Enter university:");
+        String university = scanner.nextLine();
 
-        EnterType(String enter) {
-            this.enter = enter;
-        }
+        System.out.println("Enter specialty code:");
+        String specialtyCode = scanner.nextLine();
 
-        public String getEnter() {
-            return enter;
-        }
+        System.out.println("Enter diploma number:");
+        int diplomaNumber = scanner.nextInt();
+
+        studentController.handleStudentInput(name, age, university, specialtyCode, diplomaNumber);
     }
 }

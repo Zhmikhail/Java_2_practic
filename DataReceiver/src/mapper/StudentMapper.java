@@ -2,13 +2,9 @@ package mapper;
 
 import repository.entity.StudentEntity;
 import transport.dto.request.StudentRequest;
-
-import java.util.function.Supplier;
-import java.util.logging.Logger;
-import java.util.logging.Level;
+import java.util.UUID;
 
 public class StudentMapper {
-    private static final Logger logger = Logger.getLogger(StudentMapper.class.getName());
 
     public static StudentEntity toEntity(StudentRequest request) {
         StudentEntity student = new StudentEntity();
@@ -17,7 +13,17 @@ public class StudentMapper {
         student.setUniversity(request.getUniversity());
         student.setSpecialtyCode(request.getSpecialtyCode());
         student.setDiplomaNumber(request.getDiplomaNumber());
-        logger.log(Level.INFO, student.getId() + student.getAge() + student.getName() + student.getUniversity() + student.getSpecialtyCode() + student.getDiplomaNumber());
+        return student;
+    }
+
+    public static StudentEntity toEntity(String name, int age, String university, String specialtyCode, int diplomaNumber) {
+        StudentEntity student = new StudentEntity();
+        student.setId(UUID.randomUUID().toString());
+        student.setName(name);
+        student.setAge(age);
+        student.setUniversity(university);
+        student.setSpecialtyCode(specialtyCode);
+        student.setDiplomaNumber(diplomaNumber);
         return student;
     }
 
@@ -28,7 +34,6 @@ public class StudentMapper {
         request.setUniversity(student.getUniversity());
         request.setSpecialtyCode(student.getSpecialtyCode());
         request.setDiplomaNumber(student.getDiplomaNumber());
-        logger.log(Level.INFO, student.getName() + " " + student.getAge() + " " + student.getUniversity() + " " + student.getSpecialtyCode() + " " + student.getDiplomaNumber());
         return request;
     }
 }

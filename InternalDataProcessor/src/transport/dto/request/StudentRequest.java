@@ -1,27 +1,14 @@
 package transport.dto.request;
 
 import java.io.Serializable;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 
 public class StudentRequest implements Serializable {
-    private static final Logger logger = Logger.getLogger(StudentRequest.class.getName());
-    private static final long serialVersionUID = -4286805093037675392L;
+    private static final long serialVersionUID = 1L;
     private String name;
     private int age;
     private String university;
     private String specialtyCode;
     private int diplomaNumber;
-
-//    public StudentRequest(String name, int age, String university, String specialtyCode, int diplomaNumber) {
-//        this.name = name;
-//        this.age = age;
-//        this.university = university;
-//        this.specialtyCode = specialtyCode;
-//        this.diplomaNumber = diplomaNumber;
-//        logger.log(Level.INFO, "Starting myMethod1");
-//    }
-
 
     public String getName() {
         return name;

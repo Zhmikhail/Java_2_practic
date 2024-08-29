@@ -1,16 +1,15 @@
 package repository.entity;
 
 public class StudentEntity {
-    private String student;
+    private String name;
     private int diplomaNumber;
 
-    // Getters and Setters
-    public String getStudent() {
-        return student;
+    public String getName() {
+        return name;
     }
 
-    public void setStudent(String student) {
-        this.student = student;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getDiplomaNumber() {

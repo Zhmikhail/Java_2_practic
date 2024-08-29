@@ -3,35 +3,28 @@ package transport.dto.response;
 import java.io.Serializable;
 
 public class ValidationResponse implements Serializable {
-    private boolean success;
+    private static final long serialVersionUID = 1L;
+    private boolean valid;
     private String message;
 
-    public ValidationResponse(boolean success, String message) {
-        this.success = success;
+    public ValidationResponse(boolean valid, String message) {
+        this.valid = valid;
         this.message = message;
     }
 
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public boolean isValid() {
+        return valid;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setValid(boolean valid) {
+        this.valid = valid;
     }
 
-    @Override
-    public String toString() {
-        return "ValidationResponse{" +
-                "success=" + success +
-                ", message='" + message + '\'' +
-                '}';
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

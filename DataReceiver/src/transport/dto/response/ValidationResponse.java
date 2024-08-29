@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ValidationResponse implements Serializable {
+    private static final long serialVersionUID = 1L;  // Добавлен serialVersionUID
     private boolean valid;
     private String message;
     private static final Logger logger = Logger.getLogger(ValidationResponse.class.getName());

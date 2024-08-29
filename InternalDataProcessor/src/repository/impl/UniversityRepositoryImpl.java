@@ -9,12 +9,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 
 public class UniversityRepositoryImpl implements UniversityRepository {
     private static final String FILE_PATH = "Internal.json";
-    private static final Logger logger = Logger.getLogger(UniversityRepositoryImpl.class.getName());
 
     @Override
     public List<UniversityEntity> findAll() {
@@ -28,9 +25,7 @@ public class UniversityRepositoryImpl implements UniversityRepository {
 
     @Override
     public Optional<UniversityEntity> findByName(String name) {
-        // Чтение всех университетов из файла
         List<UniversityEntity> universities = findAll();
-        // Поиск университета по имени
         return universities.stream()
                 .filter(university -> university.getUniversity().equalsIgnoreCase(name))
                 .findFirst();
