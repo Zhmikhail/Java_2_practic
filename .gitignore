@@ -43,6 +43,7 @@ dist/
 nbi/
 
 
+
 # Compiled Class Files
 out/**/classes/
 
@@ -52,5 +53,6 @@ resources/
 # IntelliJ IDEA specific
 .idea/
 **/*.iml
+**.iml
 *.iws
 out/
