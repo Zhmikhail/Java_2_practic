@@ -5,6 +5,7 @@ import repository.UniversityRepository;
 import repository.entity.UniversityEntity;
 import transport.dto.request.StudentRequestDto;
 import transport.dto.response.ValidationResponseDto;
+
 import java.util.Optional;
 
 public class InternalDataService {
@@ -17,16 +18,17 @@ public class InternalDataService {
     public ValidationResponseDto validateStudentData(StudentRequestDto request) throws ValidationException {
         Optional<UniversityEntity> universityEntityOpt = universityRepository.findByName(request.getUniversity());
         if (!universityEntityOpt.isPresent()) {
-            return new ValidationResponseDto(false, "University not found");
+            return new ValidationResponseDto(false, InternalValidationMessages.UNIVERSITY_NOT_FOUND.getMessage());
         }
 
         UniversityEntity universityEntity = universityEntityOpt.get();
         boolean specialtyExists = universityEntity.getTrends().stream()
                 .anyMatch(trend -> trend.getTrend().equals(request.getSpecialtyCode()));
+
         if (!specialtyExists) {
-            return new ValidationResponseDto(false, "Specialty code not found");
+            return new ValidationResponseDto(false, InternalValidationMessages.SPECIALTY_NOT_FOUND.getMessage());
         }
 
-        return new ValidationResponseDto(true, "Internal validation passed");
+        return new ValidationResponseDto(true, InternalValidationMessages.VALIDATION_PASSED.getMessage());
     }
 }

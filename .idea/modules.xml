@@ -3,10 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DataMonitoring/DataMonitoring.iml" filepath="$PROJECT_DIR$/DataMonitoring/DataMonitoring.iml" />
-      <module fileurl="file://$PROJECT_DIR$/DataReceiver/DataReceiver.iml" filepath="$PROJECT_DIR$/DataReceiver/DataReceiver.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ExternalDataProcessor/ExternalDataProcessor.iml" filepath="$PROJECT_DIR$/ExternalDataProcessor/ExternalDataProcessor.iml" />
-      <module fileurl="file://$PROJECT_DIR$/InternalDataProcessor/InternalDataProcessor.iml" filepath="$PROJECT_DIR$/InternalDataProcessor/InternalDataProcessor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diploma-validator/diploma-validator.iml" filepath="$PROJECT_DIR$/diploma-validator/diploma-validator.iml" />
       <module fileurl="file://$PROJECT_DIR$/diploma1.iml" filepath="$PROJECT_DIR$/diploma1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ministry-of-education/ministry-of-education.iml" filepath="$PROJECT_DIR$/ministry-of-education/ministry-of-education.iml" />
+      <module fileurl="file://$PROJECT_DIR$/university/university.iml" filepath="$PROJECT_DIR$/university/university.iml" />
     </modules>
   </component>
 </project>

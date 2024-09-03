@@ -19,7 +19,7 @@ public class ExternalDataService {
     public ValidationResponseDto validateStudentData(StudentRequestDto request) throws ValidationException {
         Optional<UniversityEntity> universityEntityOpt = universityRepository.findByName(request.getUniversity());
         if (!universityEntityOpt.isPresent()) {
-            return new ValidationResponseDto(false, "University not found");
+            return new ValidationResponseDto(false, ExternalValidationMessages.UNIVERSITY_NOT_FOUND.getMessage());
         }
 
         UniversityEntity universityEntity = universityEntityOpt.get();
@@ -28,7 +28,7 @@ public class ExternalDataService {
                 .findFirst();
 
         if (!specialtyEntityOpt.isPresent()) {
-            return new ValidationResponseDto(false, "Specialty code not found");
+            return new ValidationResponseDto(false, ExternalValidationMessages.SPECIALTY_NOT_FOUND.getMessage());
         }
 
         SpecialtyEntity specialtyEntity = specialtyEntityOpt.get();
@@ -36,9 +36,9 @@ public class ExternalDataService {
                 .anyMatch(student -> student.getName().equals(request.getName()) && student.getDiplomaNumber() == request.getDiplomaNumber());
 
         if (!studentExists) {
-            return new ValidationResponseDto(false, "Student with specified diploma number not found");
+            return new ValidationResponseDto(false, ExternalValidationMessages.STUDENT_NOT_FOUND.getMessage());
         }
 
-        return new ValidationResponseDto(true, "External validation passed");
+        return new ValidationResponseDto(true, ExternalValidationMessages.VALIDATION_PASSED.getMessage());
     }
 }

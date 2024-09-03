@@ -3,6 +3,7 @@ package transport.client.impl;
 import transport.client.SocketClient;
 import transport.dto.request.StudentRequestDto;
 import transport.dto.response.ValidationResponseDto;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -21,7 +22,10 @@ public class SocketClientImpl implements SocketClient {
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
             out.writeObject(dataRequest);
-            return (ValidationResponseDto) in.readObject();
+            ValidationResponseDto response = (ValidationResponseDto) in.readObject();
+            out.flush();
+            return response;
+
         } catch (ClassNotFoundException e) {
             throw new IOException("Error in response deserialization", e);
         }

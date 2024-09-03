@@ -6,14 +6,14 @@ import java.util.logging.Logger;
 
 //FIXME: один класс на две валидации (разбить в зависимости от бизнес процесса)
 
-public class ValidationResponse implements Serializable {
-    private static final long serialVersionUID = 1L;  // Добавлен serialVersionUID
+public class ValidationResponseDto implements Serializable {
+    private static final long serialVersionUID = 1L;
     private boolean valid;
     private String message;
-    private static final Logger logger = Logger.getLogger(ValidationResponse.class.getName());
+    private static final Logger logger = Logger.getLogger(ValidationResponseDto.class.getName());
 
 
-    public ValidationResponse(boolean valid, String message) {
+    public ValidationResponseDto(boolean valid, String message) {
         logger.log(Level.INFO, "after out.writeObject(dataRequest)");
         this.valid = valid;
         this.message = message;

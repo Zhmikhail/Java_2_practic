@@ -9,15 +9,27 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.io.FileInputStream;
+import java.util.Properties;
 
 public class UniversityRepositoryImpl implements UniversityRepository {
-    private static final String FILE_PATH = "External.json";
+    private final String filePath;
+
+    public UniversityRepositoryImpl() {
+        Properties properties = new Properties();
+        try (FileInputStream fis = new FileInputStream("resources/config/application.properties")) {
+            properties.load(fis);
+            filePath = properties.getProperty("external.file.path");
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load properties from application.properties", e);
+        }
+    }
 
     @Override
     public List<UniversityEntity> findAll() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            return Arrays.asList(objectMapper.readValue(new File(FILE_PATH), UniversityEntity[].class));
+            return Arrays.asList(objectMapper.readValue(new File(filePath), UniversityEntity[].class));
         } catch (IOException e) {
             throw new RuntimeException("Failed to read universities from JSON file", e);
         }
