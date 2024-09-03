@@ -51,6 +51,6 @@ resources/
 
 # IntelliJ IDEA specific
 .idea/
-*.iml
+**/*.iml
 *.iws
 out/
