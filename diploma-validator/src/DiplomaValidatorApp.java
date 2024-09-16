@@ -17,16 +17,19 @@ public class DiplomaValidatorApp {
 
         String internalHost = properties.getProperty("internalProcessor.host");
         int internalPort = Integer.parseInt(properties.getProperty("internalProcessor.port"));
-        System.out.println(internalPort);
         String externalHost = properties.getProperty("externalProcessor.host");
         int externalPort = Integer.parseInt(properties.getProperty("externalProcessor.port"));
+        String monitoringHost = properties.getProperty("monitoring.host");
+        int monitoringPort = Integer.parseInt(properties.getProperty("monitoring.port"));
         String csvFilePath = properties.getProperty("csv.file.path");
 
         SocketClient internalProcessorClient = new SocketClientImpl(internalHost, internalPort);
         SocketClient externalProcessorClient = new SocketClientImpl(externalHost, externalPort);
+        SocketClient monitoringClient = new SocketClientImpl(monitoringHost, monitoringPort);
 
         StudentRepository studentRepository = new StudentRepositoryImpl(csvFilePath);
-        StudentService studentService = new StudentService(studentRepository, internalProcessorClient, externalProcessorClient);
+        StudentService studentService = new StudentService(studentRepository, internalProcessorClient, externalProcessorClient,
+                monitoringClient);
 
         Console console = new Console();
         ConsoleManager consoleManager = new ConsoleManager(studentService, console);

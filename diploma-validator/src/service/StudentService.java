@@ -21,11 +21,14 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final SocketClient internalProcessorClient;
     private final SocketClient externalProcessorClient;
+    private final SocketClient monitoringClient;
 
-    public StudentService(StudentRepository studentRepository, SocketClient internalProcessorClient, SocketClient externalProcessorClient) {
+    public StudentService(StudentRepository studentRepository, SocketClient internalProcessorClient, SocketClient externalProcessorClient,
+                          SocketClient monitoringClient) {
         this.studentRepository = studentRepository;
         this.internalProcessorClient = internalProcessorClient;
         this.externalProcessorClient = externalProcessorClient;
+        this.monitoringClient = monitoringClient;
     }
 
     public void processStudentData(String name, int age, String university, String specialtyCode, int diplomaNumber) throws ValidationException, ConnectException, CheckException {
@@ -36,14 +39,14 @@ public class StudentService {
 
         ValidationResponseDto internalResponse = processInternalData(request);
         if (!internalResponse.isValid()) {
-            logger.log(Level.WARNING, ServiceMessages.INVALID_UNIVERSITY_OR_SPECIALTY.getMessage());
+            System.out.println(ServiceMessages.INVALID_UNIVERSITY_OR_SPECIALTY.getMessage());
 
             ValidationResponseDto externalResponse = processExternalData(request);
 
             if (!externalResponse.isValid()) {
                 throw new CheckException(ServiceMessages.INVALID_STUDENT_DATA.getMessage());
             } else {
-                logger.log(Level.INFO, ServiceMessages.EXTERNAL_PROCESSOR_RESPONSE.getMessage() + externalResponse.isValid());
+                System.out.println(ServiceMessages.EXTERNAL_PROCESSOR_RESPONSE.getMessage() + externalResponse.isValid());
             }
         } else {
             ValidationResponseDto externalResponse = processExternalData(request);
@@ -63,7 +66,7 @@ public class StudentService {
             logger.log(Level.INFO, ServiceMessages.INTERNAL_PROCESSOR_RESPONSE.getMessage() + response.isValid());
             return response;
         } catch (IOException e) {
-            logger.log(Level.SEVERE, ServiceMessages.ERROR_COMMUNICATING_WITH_INTERNAL.getMessage(), e);
+            logger.log(Level.WARNING, ServiceMessages.ERROR_COMMUNICATING_WITH_INTERNAL.getMessage(), e);
             throw new ConnectException(ServiceMessages.ERROR_COMMUNICATING_WITH_INTERNAL.getMessage());
         }
     }
@@ -77,6 +80,10 @@ public class StudentService {
             logger.log(Level.SEVERE, ServiceMessages.ERROR_COMMUNICATING_WITH_EXTERNAL.getMessage(), e);
             throw new ConnectException(ServiceMessages.ERROR_COMMUNICATING_WITH_EXTERNAL.getMessage());
         }
+    }
+
+    public void processMonitoringData(String header, String message)throws IOException{
+        monitoringClient.sendLog(header,message);
     }
 
     public List<StudentEntity> getAllStudents() {

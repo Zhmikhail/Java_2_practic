@@ -19,50 +19,99 @@ public class ConsoleManager {
 
     public void start() throws NumberFormatException {
         while (true) {
+            String scannedCommand = console.readLine("Select command").toUpperCase();
             try {
-                int choice = console.readInt(ConsoleMessages.ENTER_CHOICE.getMessage());
+                Commands command = Commands.valueOf(scannedCommand);
 
-                switch (choice) {
-                    case 1:
+                switch (command) {
+                    case HELP:
+                        command.printHelp();
+                        break;
+                    case ADD:
                         handleStudentInput();
                         break;
-                    case 2:
+                    case READ:
                         viewAllStudents();
                         break;
+                    case EXIT:
+                        System.exit(0);
                     default:
                         inputError();
                 }
+
             } catch (NumberFormatException e) {
                 console.print(ConsoleMessages.ERROR_NUMBER.getMessage());
             }
+            catch (IllegalArgumentException e) {
+                inputError();}
         }
     }
 
     private void handleStudentInput() {
+        String name = null;
+        int age = -1;
+        String university = null;
+        String specialtyCode = null;
+        int diplomaNumber = -1;
+
         try {
-            String name = console.readLine(ConsoleMessages.ENTER_NAME.getMessage());
-            studentValidator.validateName(name);
+            // Ввод имени
+            while (name == null) {
+                try {
+                    name = console.readLine(ConsoleMessages.ENTER_NAME.getMessage());
+                    studentValidator.validateName(name);
+                    studentService.processMonitoringData("created", "Obrabotka studenta");
+                } catch (ValidationException e) {
+                    console.print(ConsoleMessages.ERROR_VALIDATING.getMessage() + e.getMessage());
+                    name = null; // Обнуляем имя, чтобы запросить его повторно
+                }
+            }
 
-            int age = console.readInt(ConsoleMessages.ENTER_AGE.getMessage());
-            studentValidator.validateAge(age);
+            // Ввод возраста
+            while (age == -1) {
+                try {
+                    age = console.readInt(ConsoleMessages.ENTER_AGE.getMessage());
+                    studentValidator.validateAge(age);
+                } catch (ValidationException e) {
+                    console.print(ConsoleMessages.ERROR_VALIDATING.getMessage() + e.getMessage());
+                    age = -1; // Обнуляем возраст, чтобы запросить его повторно
+                }
+            }
 
-            String university = console.readLine(ConsoleMessages.ENTER_UNIVERSITY.getMessage());
+            // Ввод университета
+            university = console.readLine(ConsoleMessages.ENTER_UNIVERSITY.getMessage());
 
-            String specialtyCode = console.readLine(ConsoleMessages.ENTER_SPECIALTY_CODE.getMessage());
-            studentValidator.validateSpecialtyCode(specialtyCode);
+            // Ввод кода специальности
+            while (specialtyCode == null) {
+                try {
+                    specialtyCode = console.readLine(ConsoleMessages.ENTER_SPECIALTY_CODE.getMessage());
+                    studentValidator.validateSpecialtyCode(specialtyCode);
+                } catch (ValidationException e) {
+                    console.print(ConsoleMessages.ERROR_VALIDATING.getMessage() + e.getMessage());
+                    specialtyCode = null; // Обнуляем код специальности для повторного запроса
+                }
+            }
 
-            int diplomaNumber = console.readInt(ConsoleMessages.ENTER_DIPLOMA_NUMBER.getMessage());
-            studentValidator.validateDiplomaNumber(diplomaNumber);
+            // Ввод номера диплома
+            while (diplomaNumber == -1) {
+                try {
+                    diplomaNumber = console.readInt(ConsoleMessages.ENTER_DIPLOMA_NUMBER.getMessage());
+                    studentValidator.validateDiplomaNumber(diplomaNumber);
+                } catch (ValidationException e) {
+                    console.print(ConsoleMessages.ERROR_VALIDATING.getMessage() + e.getMessage());
+                    diplomaNumber = -1; // Обнуляем номер диплома для повторного ввода
+                }
+            }
 
+            // Обработка данных студента
             studentService.processStudentData(name, age, university, specialtyCode, diplomaNumber);
             console.print(ConsoleMessages.OUTPUT_SUCCESS.getMessage());
 
-        } catch (ValidationException e) {
-            console.print(ConsoleMessages.ERROR_VALIDATING.getMessage() + e.getMessage());
         } catch (Exception e) {
             console.print(ConsoleMessages.ERROR_PROCESSING.getMessage() + e.getMessage());
         }
     }
+
 
     private void viewAllStudents() {
         console.print(ConsoleMessages.STUDENTS_LIST.getMessage());

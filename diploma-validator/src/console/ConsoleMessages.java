@@ -7,7 +7,7 @@ public enum ConsoleMessages {
     ENTER_UNIVERSITY("Enter university:"),
     ENTER_SPECIALTY_CODE("Enter specialty code:"),
     ENTER_DIPLOMA_NUMBER("Enter diploma number:"),
-    ERROR_INVALID_CHOICE("Invalid choice, please try again."),
+    ERROR_INVALID_CHOICE("Invalid choice, please try 'help'"),
     OUTPUT_ALL_STUDENTS("Name: %s, Age: %d, University: %s, Specialty Code: %s, Diploma Number: %d"),
     ERROR_NUMBER("Invalid input. Please enter a number."),
     ERROR_PROCESSING("Error processing student data: "),

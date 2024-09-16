@@ -30,4 +30,20 @@ public class SocketClientImpl implements SocketClient {
             throw new IOException("Error in response deserialization", e);
         }
     }
+
+    public void sendLog(String header, String message) throws IOException {
+        try (Socket socket = new Socket(host, port);
+             BufferedWriter writer = new BufferedWriter(
+                     new OutputStreamWriter(socket.getOutputStream()))) {
+
+            writer.write(header);
+            writer.newLine();
+            writer.write(message);
+            writer.newLine();
+            writer.flush();
+
+        } catch (IOException e) {
+            System.out.println("Monitoring service is down");
+        }
+    }
 }

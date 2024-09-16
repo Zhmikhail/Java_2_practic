@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DataMonitoring/DataMonitoring.iml" filepath="$PROJECT_DIR$/DataMonitoring/DataMonitoring.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/data-monitoring/data-monitoring.iml" filepath="$PROJECT_DIR$/data-monitoring/data-monitoring.iml" />
       <module fileurl="file://$PROJECT_DIR$/diploma-validator/diploma-validator.iml" filepath="$PROJECT_DIR$/diploma-validator/diploma-validator.iml" />
       <module fileurl="file://$PROJECT_DIR$/diploma1.iml" filepath="$PROJECT_DIR$/diploma1.iml" />
       <module fileurl="file://$PROJECT_DIR$/ministry-of-education/ministry-of-education.iml" filepath="$PROJECT_DIR$/ministry-of-education/ministry-of-education.iml" />
