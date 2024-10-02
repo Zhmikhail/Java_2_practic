@@ -4,6 +4,7 @@ import exception.ValidationException;
 import exception.ConnectException;
 import exception.CheckException;
 import mapper.StudentMapper;
+import org.springframework.stereotype.Service;
 import repository.StudentRepository;
 import repository.entity.StudentEntity;
 import transport.client.SocketClient;
@@ -12,10 +13,13 @@ import transport.dto.response.ValidationResponseDto;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Optional;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
+@Service
 public class StudentService {
+
     private static final Logger logger = Logger.getLogger(StudentService.class.getName());
 
     private final StudentRepository studentRepository;
@@ -59,7 +63,6 @@ public class StudentService {
         studentRepository.update(student);
     }
 
-
     private ValidationResponseDto processInternalData(StudentRequestDto request) throws ConnectException {
         try {
             ValidationResponseDto response = internalProcessorClient.sendData(request);
@@ -82,8 +85,29 @@ public class StudentService {
         }
     }
 
-    public void processMonitoringData(String header, String message)throws IOException{
-        monitoringClient.sendLog(header,message);
+    public void processMonitoringData(String header, String message) throws IOException {
+        monitoringClient.sendLog(header, message);
+    }
+
+    public void deleteStudent(String name, int age, String university, String specialtyCode, int diplomaNumber) {
+        Optional<StudentEntity> studentOpt = studentRepository.findByDetails(name, age, university, specialtyCode, diplomaNumber);
+        if (studentOpt.isPresent()) {
+            studentRepository.delete(studentOpt.get());
+            logger.info(ServiceMessages.STUDENT_DELETED_SUCCESS.getMessage());
+        } else {
+            logger.warning(ServiceMessages.STUDENT_NOT_FOUND.getMessage());
+        }
+    }
+
+    public void updateStudent(StudentEntity student) throws ValidationException, ConnectException, CheckException {
+        ValidationResponseDto internalResponse = processInternalData(StudentMapper.toDto(student));
+
+        if (internalResponse.isValid()) {
+            studentRepository.update(student);
+            logger.info(ServiceMessages.STUDENT_UPDATED_SUCCESS.getMessage());
+        } else {
+            throw new ValidationException(ServiceMessages.INVALID_UNIVERSITY_OR_SPECIALTY.getMessage());
+        }
     }
 
     public List<StudentEntity> getAllStudents() {

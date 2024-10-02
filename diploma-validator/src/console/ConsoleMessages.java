@@ -1,7 +1,6 @@
 package console;
 
 public enum ConsoleMessages {
-    ENTER_CHOICE("Enter 1 to input a new student or 2 to view all students:"),
     ENTER_NAME("Enter student name:"),
     ENTER_AGE("Enter student age:"),
     ENTER_UNIVERSITY("Enter university:"),
@@ -14,6 +13,8 @@ public enum ConsoleMessages {
     ERROR_VALIDATING("Error validating student data: "),
     OUTPUT_NO_STUDENTS("No students found."),
     OUTPUT_SUCCESS("Student data processed successfully!"),
+    STUDENT_UPDATED("Student data updated successfully!"),
+    STUDENT_DELETED("Student deleted successfully!"),
     STUDENTS_LIST("Here are all the students:");
 
     private final String message;

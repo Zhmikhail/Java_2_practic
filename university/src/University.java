@@ -1,6 +1,6 @@
-import controller.ExternalDataController;
+import controller.UniversityController;
 import repository.impl.UniversityRepositoryImpl;
-import service.ExternalDataService;
+import service.UniversityService;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -22,8 +22,8 @@ public class University {
         }
 
         UniversityRepositoryImpl universityRepository = new UniversityRepositoryImpl();
-        ExternalDataService externalDataService = new ExternalDataService(universityRepository);
-        ExternalDataController controller = new ExternalDataController(externalDataService);
+        UniversityService universityService = new UniversityService(universityRepository);
+        UniversityController controller = new UniversityController(universityService);
 
         controller.startServer(externalPort);
     }

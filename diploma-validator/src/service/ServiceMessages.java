@@ -7,6 +7,9 @@ public enum ServiceMessages {
     EXTERNAL_PROCESSOR_RESPONSE("External processor response: "),
     INVALID_UNIVERSITY_OR_SPECIALTY("Invalid university or specialty"),
     SUCCESS_MESSAGE("Validation process completed"),
+    STUDENT_DELETED_SUCCESS("Student deleted successfully"),
+    STUDENT_UPDATED_SUCCESS("Student updated successfully"),
+    STUDENT_NOT_FOUND("Student not found"),
     INVALID_STUDENT_DATA("Invalid student data");
 
     private final String message;

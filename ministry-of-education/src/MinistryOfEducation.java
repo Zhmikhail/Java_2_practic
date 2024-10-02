@@ -1,7 +1,6 @@
-import controller.InternalDataController;
+import controller.MinistryController;
 import repository.impl.UniversityRepositoryImpl;
-import service.InternalDataService;
-import java.io.FileInputStream;
+import service.MinistryService;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -22,8 +21,8 @@ public class MinistryOfEducation {
         }
 
         UniversityRepositoryImpl universityRepository = new UniversityRepositoryImpl();
-        InternalDataService internalDataService = new InternalDataService(universityRepository);
-        InternalDataController controller = new InternalDataController(internalDataService);
+        MinistryService ministryService = new MinistryService(universityRepository);
+        MinistryController controller = new MinistryController(ministryService);
 
         controller.startServer(internalPort);
     }
