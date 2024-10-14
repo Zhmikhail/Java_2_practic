@@ -1,0 +1,36 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: diploma_validator
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  mongo-main:
+    image: mongo
+    container_name: mongo-university
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./mongo-university-data:/data/db
+
+  mongo-validation:
+    image: mongo
+    container_name: mongo-ministry
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./mongo-ministry-data:/data/db

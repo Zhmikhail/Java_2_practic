@@ -1,0 +1,7 @@
+учше
+db.students.find().pretty()
+db.<collection_name>.find().pretty()
+db.students.findOne()
+show collections
+db.students.insertMany([ { "id": 123, "university": "BMSTU", "trends": [ { "trend": "01.02.03" }, { "trend": "01.01.01" }] }, { "id": 124, "university": "MIPT", "trends": [ { "trend": "02.01.01" }, { "trend": "02.02.03" }] }] )
+use university

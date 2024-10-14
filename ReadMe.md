@@ -15,7 +15,7 @@
 
 university
 
-    java -cp "out\university;lib\common.jar;lib\jackson-core-2.12.3.jar;lib\jackson-databind-2.12.3.jar;lib\jackson-annotations-2.12.3.jar" University
+    java -cp "out\university;lib\common.jar;lib\jackson-core-2.12.3.jar;lib\jackson-databind-2.12.3.jar;lib\jackson-annotations-2.12.3.jar" main.University
 ministry-of-education
 
     java -cp "out\ministry-of-education;lib\common.jar;lib\jackson-core-2.12.3.jar;lib\jackson-databind-2.12.3.jar;lib\jackson-annotations-2.12.3.jar" MinistryOfEducation

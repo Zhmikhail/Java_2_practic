@@ -25,6 +25,7 @@ public class UniversityRepositoryImpl implements UniversityRepository {
         }
     }
 
+
     @Override
     public List<UniversityEntity> findAll() {
         ObjectMapper objectMapper = new ObjectMapper();

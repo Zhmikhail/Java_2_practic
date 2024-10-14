@@ -5,9 +5,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StudentRepository {
-    void save(StudentEntity student);
-    List<StudentEntity> findAll();
+    void saveStudent(StudentEntity student);
+    List<StudentEntity> getAllStudents();
+    void updateStudent(StudentEntity student);
+    void updateStudentByDetails(StudentEntity student);
+    void deleteStudent(StudentEntity student);
+    void deleteStudentByDetails(StudentEntity student);
     Optional<StudentEntity> findByDetails(String name, int age, String university, String specialtyCode, int diplomaNumber);
-    void update(StudentEntity student);
-    void delete(StudentEntity student);
+    Optional<StudentEntity> findById(int id);
+    List<StudentEntity> findAll();
 }

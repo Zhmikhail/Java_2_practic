@@ -9,7 +9,7 @@ import java.util.UUID;
 public class StudentEntity {
 
     @Id
-    private String id;
+    private Integer id;
     private String name;
     private int age;
     private String university;
@@ -17,7 +17,6 @@ public class StudentEntity {
     private int diplomaNumber;
 
     public StudentEntity(String name, int age, String university, String specialtyCode, int diplomaNumber) {
-        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.age = age;
         this.university = university;
@@ -27,14 +26,23 @@ public class StudentEntity {
 
     public StudentEntity() {}
 
-    // Геттеры для всех полей
-    public String getId() { return id; }
+    public StudentEntity(int id, String name, int age, String university, String specialtyCode, int diplomaNumber) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.university = university;
+        this.specialtyCode = specialtyCode;
+        this.diplomaNumber = diplomaNumber;
+
+    }
+
+    public Integer getId() { return id; }
     public String getName() { return name; }
     public int getAge() { return age; }
     public String getUniversity() { return university; }
     public String getSpecialtyCode() { return specialtyCode; }
     public int getDiplomaNumber() { return diplomaNumber; }
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

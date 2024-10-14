@@ -5,7 +5,7 @@ import repository.entity.StudentEntity;
 import transport.dto.request.StudentRequestDto;
 
 public class UniversityMapper {
-    //FIXME: не совсем верное использование шаблона адаптер (маппер)
+
     public static ValidationResponseDto toValidationResponse(boolean isValid, String message) {
         return new ValidationResponseDto(isValid, message);
     }

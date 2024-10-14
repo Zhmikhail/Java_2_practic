@@ -1,26 +1,26 @@
 package service;
-
-import exception.ValidationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import repository.UniversityRepository;
 import repository.entity.UniversityEntity;
 import repository.entity.SpecialtyEntity;
 import transport.dto.request.StudentRequestDto;
 import transport.dto.response.ValidationResponseDto;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+@Service
 public class UniversityService {
     private final UniversityRepository universityRepository;
     private static final Logger logger = Logger.getLogger(UniversityService.class.getName());
 
-
+    @Autowired
     public UniversityService(UniversityRepository universityRepository) {
         this.universityRepository = universityRepository;
     }
 
-    public ValidationResponseDto validateStudentData(StudentRequestDto request) throws ValidationException {
+    public ValidationResponseDto validateStudentData(StudentRequestDto request) {
         Optional<UniversityEntity> universityEntityOpt = universityRepository.findByName(request.getUniversity());
         if (!universityEntityOpt.isPresent()) {
             logger.log(Level.INFO, UniversityValidationMessages.UNIVERSITY_NOT_FOUND.getMessage());
@@ -39,7 +39,8 @@ public class UniversityService {
 
         SpecialtyEntity specialtyEntity = specialtyEntityOpt.get();
         boolean studentExists = specialtyEntity.getStudents().stream()
-                .anyMatch(student -> student.getName().equals(request.getName()) && student.getDiplomaNumber() == request.getDiplomaNumber());
+                .anyMatch(student -> student.getName().equals(request.getName()) &&
+                        student.getDiplomaNumber() == request.getDiplomaNumber());
 
         if (!studentExists) {
             logger.log(Level.INFO, UniversityValidationMessages.STUDENT_NOT_FOUND.getMessage());

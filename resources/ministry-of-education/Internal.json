@@ -3,6 +3,7 @@
     "id": 123,
     "university": "BMSTU",
     "trends": [
+      {"trend": "01.01.01"},
       {"trend": "01.02.03"}
     ]
   },

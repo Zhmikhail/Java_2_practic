@@ -1,0 +1,17 @@
+[
+  {
+    "id": 123,
+    "university": "BMSTU",
+    "trends": [
+      {"trend": "01.02.03"}
+    ]
+  },
+  {
+    "id": 124,
+    "university": "MIPT",
+    "trends": [
+      {"trend": "02.01.01"},
+      {"trend": "02.02.03"}
+    ]
+  }
+]

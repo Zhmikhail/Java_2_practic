@@ -1,0 +1,8 @@
+exit
+учше
+db.students.find()
+show collections
+use diploma-validator
+select * from admin
+show dbs
+mongo

@@ -1,15 +1,12 @@
 package diploma_validator;
 
-import com.mongodb.client.MongoClients;
 import console.Console;
 import console.ConsoleManager;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.mongodb.MongoDatabaseFactory;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
+import org.springframework.jdbc.core.JdbcTemplate;
 import repository.StudentRepository;
 import repository.impl.StudentRepositoryImpl;
 import service.StudentService;
@@ -33,31 +30,14 @@ public class DiplomaValidatorApp implements CommandLineRunner {
         return properties;
     }
 
-
     @Bean
-    public SocketClient internalProcessorClient(Properties properties) {
-        String host = properties.getProperty("internalProcessor.host");
-        int port = Integer.parseInt(properties.getProperty("internalProcessor.port"));
-        return new SocketClientImpl(host, port);
+    public JdbcTemplate jdbcTemplate(org.springframework.jdbc.datasource.DriverManagerDataSource dataSource) {
+        return new JdbcTemplate(dataSource);
     }
 
     @Bean
-    public SocketClient externalProcessorClient(Properties properties) {
-        String host = properties.getProperty("externalProcessor.host");
-        int port = Integer.parseInt(properties.getProperty("externalProcessor.port"));
-        return new SocketClientImpl(host, port);
-    }
-
-    @Bean
-    public SocketClient monitoringClient(Properties properties) {
-        String host = properties.getProperty("monitoring.host");
-        int port = Integer.parseInt(properties.getProperty("monitoring.port"));
-        return new SocketClientImpl(host, port);
-    }
-
-    @Bean
-    public StudentRepository studentRepository(org.springframework.data.mongodb.core.MongoTemplate mongoTemplate) {
-        return new StudentRepositoryImpl(mongoTemplate);
+    public StudentRepository studentRepository(JdbcTemplate jdbcTemplate) {
+        return new StudentRepositoryImpl(jdbcTemplate);
     }
 
     @Bean
@@ -77,22 +57,38 @@ public class DiplomaValidatorApp implements CommandLineRunner {
     public ConsoleManager consoleManager(StudentService studentService, Console console) {
         return new ConsoleManager(studentService, console);
     }
-
     @Bean
-    public MongoDatabaseFactory mongoDatabaseFactory(Properties properties) {
-        String connectionString = properties.getProperty("spring.data.mongodb.uri");
-        return new SimpleMongoClientDatabaseFactory(MongoClients.create(connectionString), "diploma-validator");
+    public SocketClient internalProcessorClient(Properties applicationProperties) {
+        return new SocketClientImpl(applicationProperties.getProperty("internalProcessor.host"),
+                Integer.parseInt(applicationProperties.getProperty("internalProcessor.port")));
     }
 
     @Bean
-    public MongoTemplate mongoTemplate(MongoDatabaseFactory mongoDatabaseFactory) {
-        return new MongoTemplate(mongoDatabaseFactory);
+    public SocketClient externalProcessorClient(Properties applicationProperties) {
+        return new SocketClientImpl(applicationProperties.getProperty("externalProcessor.host"),
+                Integer.parseInt(applicationProperties.getProperty("externalProcessor.port")));
+    }
+
+    @Bean
+    public SocketClient monitoringClient(Properties applicationProperties) {
+        return new SocketClientImpl(applicationProperties.getProperty("monitoring.host"),
+                Integer.parseInt(applicationProperties.getProperty("monitoring.port")));
+    }
+
+    @Bean
+    public org.springframework.jdbc.datasource.DriverManagerDataSource dataSource(Properties applicationProperties) {
+        org.springframework.jdbc.datasource.DriverManagerDataSource dataSource = new org.springframework.jdbc.datasource.DriverManagerDataSource();
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl(applicationProperties.getProperty("db.url"));
+        dataSource.setUsername(applicationProperties.getProperty("db.username"));
+        dataSource.setPassword(applicationProperties.getProperty("db.password"));
+        return dataSource;
     }
 
     @Override
     public void run(String... args) throws Exception {
         ConsoleManager consoleManager = consoleManager(studentService(
-                studentRepository(mongoTemplate(mongoDatabaseFactory(applicationProperties()))),
+                studentRepository(jdbcTemplate(null)),
                 internalProcessorClient(applicationProperties()),
                 externalProcessorClient(applicationProperties()),
                 monitoringClient(applicationProperties())

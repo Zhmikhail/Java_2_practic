@@ -8,7 +8,6 @@ public class StudentMapper {
 
     public static StudentEntity toEntity(String name, int age, String university, String specialtyCode, int diplomaNumber) {
         StudentEntity student = new StudentEntity();
-        student.setId(UUID.randomUUID().toString());
         student.setName(name);
         student.setAge(age);
         student.setUniversity(university);
