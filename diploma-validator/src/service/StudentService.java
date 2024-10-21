@@ -41,7 +41,7 @@ public class StudentService {
         studentRepository.saveStudent(student);
 
         // Логируйте информацию о сохраненном студенте
-        logger.info("Processing student data: " + student.toString()); // Выводит всю информацию о студенте, включая ID
+        logger.info("Processing student data: " + student); // Выводит всю информацию о студенте, включая ID
 
         StudentRequestDto request = StudentMapper.toDto(student);
         validateStudentData(request);
@@ -50,7 +50,7 @@ public class StudentService {
     }
 
 
-    private void validateStudentData(StudentRequestDto request) throws ValidationException, ConnectException, CheckException {
+    private void validateStudentData(StudentRequestDto request) throws ConnectException, CheckException {
         ValidationResponseDto internalResponse = processData(request, internalProcessorClient, ServiceMessages.ERROR_COMMUNICATING_WITH_INTERNAL.getMessage());
 
         if (!internalResponse.isValid()) {
@@ -121,13 +121,13 @@ public class StudentService {
     }
 
 
-    private void updateFields(StudentEntity existingStudent, StudentEntity updatedStudent) {
-        existingStudent.setId(existingStudent.getId());
-        if (updatedStudent.getName() != null) existingStudent.setName(updatedStudent.getName());
-        if (updatedStudent.getAge() != -1) existingStudent.setAge(updatedStudent.getAge());
-        if (updatedStudent.getUniversity() != null) existingStudent.setUniversity(updatedStudent.getUniversity());
-        if (updatedStudent.getSpecialtyCode() != null) existingStudent.setSpecialtyCode(updatedStudent.getSpecialtyCode());
-        if (updatedStudent.getDiplomaNumber() != -1) existingStudent.setDiplomaNumber(updatedStudent.getDiplomaNumber());
+    private void updateFields(StudentEntity existStud, StudentEntity updStud) {
+        existStud.setId(existStud.getId());
+        if (updStud.getName() != null) existStud.setName(updStud.getName());
+        if (updStud.getAge() != -1) existStud.setAge(updStud.getAge());
+        if (updStud.getUniversity() != null) existStud.setUniversity(updStud.getUniversity());
+        if (updStud.getSpecialtyCode() != null) existStud.setSpecialtyCode(updStud.getSpecialtyCode());
+        if (updStud.getDiplomaNumber() != -1) existStud.setDiplomaNumber(updStud.getDiplomaNumber());
     }
 
     public void processMonitoringData(String header, String message) throws IOException {

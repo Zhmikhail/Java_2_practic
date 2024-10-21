@@ -1,5 +1,7 @@
 package transport.client.impl;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import transport.client.SocketClient;
 import transport.dto.request.StudentRequestDto;
 import transport.dto.response.ValidationResponseDto;
@@ -7,8 +9,12 @@ import transport.dto.response.ValidationResponseDto;
 import java.io.*;
 import java.net.Socket;
 
+@Component
 public class SocketClientImpl implements SocketClient {
+
+    @Value("{$internalProcessor.host}")
     private final String host;
+    @Value("{$internalProcessor.port}")
     private final int port;
 
     public SocketClientImpl(String host, int port) {

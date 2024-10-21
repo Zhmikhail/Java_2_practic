@@ -1,6 +1,8 @@
 package repository.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import repository.entity.UniversityEntity;
 import repository.UniversityRepository;
 
@@ -12,35 +14,29 @@ import java.util.Optional;
 import java.io.FileInputStream;
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Repository;
+import repository.entity.UniversityEntity;
+
+import java.util.List;
+
+@Repository
 public class UniversityRepositoryImpl implements UniversityRepository {
-    private final String filePath;
 
-    public UniversityRepositoryImpl() {
-        Properties properties = new Properties();
-        try (FileInputStream fis = new FileInputStream("resources/config/application.properties")) {
-            properties.load(fis);
-            filePath = properties.getProperty("external.file.path");
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to load properties from application.properties", e);
-        }
-    }
-
+    @Autowired
+    private MongoTemplate mongoTemplateUniversity;
 
     @Override
     public List<UniversityEntity> findAll() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            return Arrays.asList(objectMapper.readValue(new File(filePath), UniversityEntity[].class));
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to read universities from JSON file", e);
-        }
+        return mongoTemplateUniversity.findAll(UniversityEntity.class, "students");
     }
 
     @Override
     public Optional<UniversityEntity> findByName(String name) {
-        List<UniversityEntity> universities = findAll();
-        return universities.stream()
-                .filter(university -> university.getUniversity().equalsIgnoreCase(name))
-                .findFirst();
+        Query query = new Query();
+        query.addCriteria(Criteria.where("university").is(name));
+        UniversityEntity university = mongoTemplateUniversity.findOne(query, UniversityEntity.class, "students");
+        return Optional.ofNullable(university);
     }
 }

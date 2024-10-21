@@ -2,7 +2,6 @@ package mapper;
 
 import repository.entity.StudentEntity;
 import transport.dto.request.StudentRequestDto;
-import java.util.UUID;
 
 public class StudentMapper {
 

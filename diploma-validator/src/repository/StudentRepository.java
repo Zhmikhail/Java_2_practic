@@ -1,9 +1,11 @@
 package repository;
 
+import org.springframework.stereotype.Repository;
 import repository.entity.StudentEntity;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface StudentRepository {
     void saveStudent(StudentEntity student);
     List<StudentEntity> getAllStudents();

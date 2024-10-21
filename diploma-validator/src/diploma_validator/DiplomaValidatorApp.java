@@ -23,6 +23,7 @@ public class DiplomaValidatorApp implements CommandLineRunner {
         SpringApplication.run(DiplomaValidatorApp.class, args);
     }
 
+    //todo: property not manual
     @Bean
     public Properties applicationProperties() throws IOException {
         Properties properties = new Properties();
@@ -30,16 +31,20 @@ public class DiplomaValidatorApp implements CommandLineRunner {
         return properties;
     }
 
+    //TODO: Do with JPA
+    //TODO: not inject bean in Application class
     @Bean
     public JdbcTemplate jdbcTemplate(org.springframework.jdbc.datasource.DriverManagerDataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 
+    //TODO: not inject bean in Application class
     @Bean
     public StudentRepository studentRepository(JdbcTemplate jdbcTemplate) {
         return new StudentRepositoryImpl(jdbcTemplate);
     }
 
+    //TODO: not inject bean in Application class
     @Bean
     public StudentService studentService(StudentRepository studentRepository,
                                          SocketClient internalProcessorClient,
@@ -48,6 +53,7 @@ public class DiplomaValidatorApp implements CommandLineRunner {
         return new StudentService(studentRepository, internalProcessorClient, externalProcessorClient, monitoringClient);
     }
 
+    //TODO: not inject bean in Application class
     @Bean
     public Console console() {
         return new Console();
