@@ -18,7 +18,7 @@ university
     java -cp "out\university;lib\common.jar;lib\jackson-core-2.12.3.jar;lib\jackson-databind-2.12.3.jar;lib\jackson-annotations-2.12.3.jar" main.University
 ministry-of-education
 
-    java -cp "out\ministry-of-education;lib\common.jar;lib\jackson-core-2.12.3.jar;lib\jackson-databind-2.12.3.jar;lib\jackson-annotations-2.12.3.jar" MinistryOfEducation
+    java -cp "out\ministry-of-education;lib\common.jar;lib\jackson-core-2.12.3.jar;lib\jackson-databind-2.12.3.jar;lib\jackson-annotations-2.12.3.jar" ministryofeducation.MinistryOfEducation
 И в основном терминале, в котором будет работа, запускаем diploma-validator
 
     java -cp "out\diploma-validator" diploma_validator.DiplomaValidatorApp 

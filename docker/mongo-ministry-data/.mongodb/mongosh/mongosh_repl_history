@@ -1,7 +1,17 @@
-учше
+db.students.find({ university: "BMSTU" }).pretty()
+db.students.insertMany([ { "id": 123, "university": "BMSTU", "trends": [ { "trend": "01.01.01" }, { "trend": "01.02.03" }] }, { "id": 124, "university": "MIPT", "trends": [ { "trend": "02.01.01" }, { "trend": "02.02.03" }] }] )
+db.students.find({ university: "BMSTU" }).pretty()
+db.students.drop()
+db.students.find({ university: "BMSTU" }).pretty()
+db.students.find({ name: "BMSTU" }).pretty()
+db.universities.find({ name: "BMSTU" }).pretty()
+db.universities.find({ name: "BMST" }).pretty()
+db.universities.find({ name: "Harvard" }).pretty()
 db.students.find().pretty()
-db.<collection_name>.find().pretty()
-db.students.findOne()
-show collections
-db.students.insertMany([ { "id": 123, "university": "BMSTU", "trends": [ { "trend": "01.02.03" }, { "trend": "01.01.01" }] }, { "id": 124, "university": "MIPT", "trends": [ { "trend": "02.01.01" }, { "trend": "02.02.03" }] }] )
-use university
+db.universities.find().pretty()
+db.students.find({ university: "BMSTU" }).pretty();
+db.students.insertMany([ { "id": 123, "university": "BMSTU", "trends": [ { "trend": "01.01.01" }, { "trend": "01.02.03" }] }, { "id": 124, "university": "MIPT", "trends": [ { "trend": "02.01.01" }, { "trend": "02.02.03" }] }] )
+db.students.insertMany([ { "id": 123, "university": "BMSTU", "trends": [ {"trend": "01.01.01"}, {"trend": "01.02.03"} ] }, { "id": 124, "university": "MIPT", "trends": [ {"trend": "02.01.01"}, {"trend": "02.02.03"} ] } ] \)
+db.students.insertMany(db.students.insertMany([ { "id": 123, "university": "BMSTU", "trends": [ {"trend": "01.01.01"}, {"trend": "01.02.03"} ] }, { "id": 124, "university": "MIPT", "trends": [ {"trend": "02.01.01"}, {"trend": "02.02.03"} ] } ] \)
+db.createCollection("students")
+use ministry

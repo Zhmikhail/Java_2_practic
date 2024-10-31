@@ -25,7 +25,7 @@ public class MongoConfig {
     @Primary
     @Bean
     public MongoDbFactory universityFactory(MongoClient mongoClient) {
-        return new SimpleMongoClientDbFactory("mongodb://root:example@localhost:27017/university");
+        return (MongoDbFactory) new SimpleMongoClientDbFactory("mongodb://root:example@localhost:27017/university");
     }
 
 }

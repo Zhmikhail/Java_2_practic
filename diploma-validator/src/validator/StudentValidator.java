@@ -1,8 +1,11 @@
 package validator;
 
 import exception.ValidationException;
+import org.springframework.stereotype.Component;
+
 import java.util.regex.Pattern;
 
+@Component
 public class StudentValidator {
     private static final Pattern NAME_PATTERN = Pattern.compile("^[A-Za-z\\s-]+$");
     private static final Pattern UNIVERSITY_PATTERN = Pattern.compile("^[A-Za-z]+$");  // Университет: только английские буквы

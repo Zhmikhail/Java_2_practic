@@ -1,5 +1,8 @@
 package repository.entity;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "students")
 public class StudentEntity {
     private String name;
     private int diplomaNumber;

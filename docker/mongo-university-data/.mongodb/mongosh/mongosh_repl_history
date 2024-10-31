@@ -1,34 +1,45 @@
-db.students.find().pretty()
-show collections
-db.students.insertMany( [ { "id": 1, "university": "MIPT", "specialties": [ { "specialtyCode": "02.01.01", "students": [ { "name": "Ivan", "diplomaNumber": 12345 }, { "name": "Sergey", "diplomaNumber": 12346 }] }, { "specialtyCode": "02.02.03", "students": [ { "name": "Alexey", "diplomaNumber": 12347 }, { "name": "Pavel", "diplomaNumber": 12348 }] }] }, { "id": 2, "university": "BMSTU", "specialties": [ { "specialtyCode": "01.01.01", "students": [ { "name": "Dmitry", "diplomaNumber": 22345 }, { "name": "r", "diplomaNumber": 4 }] }, { "specialtyCode": "01.02.03", "students": [ { "name": "Roman", "diplomaNumber": 22347 }, { "name": "Oleg", "diplomaNumber": 22348 }] }] }] )
-show collections
-show dbs
-use ministry
-show dbs "name": "Alexey",
-          {
-        "students": [
-        "specialtyCode": "02.02.03",
-      {
-      },
+db.students.find({ specialties: { $exists: false } })
+db.students.find()
+db.students.insertMany([ { "id": 1, "university": "MIPT", "specialties": [ { "specialtyCode": "02.01.01", "students": [ { "name": "Ivan", "diplomaNumber": 12345 }, { "name": "Sergey", "diplomaNumber": 12346 }] }, { "specialtyCode": "02.02.03", "students": [ { "name": "Alexey", "diplomaNumber": 12347 }, { "name": "Pavel", "diplomaNumber": 12348 }] }] }, { "id": 2, "university": "BMSTU", "specialties": [ { "specialtyCode": "01.01.01", "students": [ { "name": "Dmitry", "diplomaNumber": 22345 }, { "name": "r", "diplomaNumber": 4 }] }, { "specialtyCode": "01.02.03", "students": [ { "name": "Roman", "diplomaNumber": 22347 }, { "name": "Oleg", "diplomaNumber": 22348 }] }] }] )
+db.university.drop()
+db.createCollection("students")
+db.createCollection("university")
+use university2,
+    {
+    },
         ]
-          }
-            "diplomaNumber": 12346
-            "name": "Sergey",
-          {
-          },
-            "diplomaNumber": 12345
-            "name": "Ivan",
-          {
-        "students": [
-        "specialtyCode": "02.01.01",
-      {
-    "specialties": [
-    "university": "MIPT",
-    "id": 1,
-  {
-[
-db.students.insertMany(
-show collections
-show dbs
-use ministry
-show dbs
+            }
+                ]
+                    }
+                        "diplomaNumber": 12348
+                        "name": "Pavel",
+                    {
+                    },
+                        "diplomaNumber": 12347
+                        "name": "Alexey",
+                    {
+                "students": [
+                "specialtyCode": "02.02.03",
+            {
+            },
+                ]
+                    }
+                        "diplomaNumber": 12346
+                        "name": "Sergey",
+                    {
+                    },
+                        "diplomaNumber": 12345
+                        "name": "Ivan",
+                    {
+                "students": [
+                "specialtyCode": "02.01.01",
+            {
+        "specialties": [
+        "university": "MIPT",
+        "id": 1,
+    {
+db.students.insertMany([
+db.university.drop()
+db.createCollection("students")
+db.createCollection("university")
+use university

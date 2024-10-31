@@ -1,50 +1,57 @@
 package controller;
 
 import exception.ValidationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import repository.entity.UniversityEntity;
 import service.MinistryService;
 import transport.dto.request.StudentRequestDto;
 import transport.dto.response.ValidationResponseDto;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 
+import java.util.List;
+
+@RestController
+@RequestMapping("internal")
 public class MinistryController {
-    private static final Logger logger = Logger.getLogger(MinistryController.class.getName());
 
     private final MinistryService ministryService;
+    private final RestTemplate restTemplate = new RestTemplate();
 
+    // Конструктор
     public MinistryController(MinistryService ministryService) {
         this.ministryService = ministryService;
     }
 
-    public ValidationResponseDto processStudentData(StudentRequestDto request) throws ValidationException {
-        return ministryService.validateStudentData(request);
+    public ResponseEntity<List<UniversityEntity>> start() {
+        System.out.println("Ministry started");
+        System.out.println(ResponseEntity.ok(ministryService.getAll()));
+        return ResponseEntity.ok(ministryService.getAll());
     }
 
-    public void startServer(int port) {
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-            while (true) {
-                try (Socket socket = serverSocket.accept();
-                     ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-                     ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream())) {
+    @GetMapping("/getUniversity")
+    public ResponseEntity<List<UniversityEntity>> getAll(){
+        return ResponseEntity.ok(ministryService.getAll());
+    }
 
-                    StudentRequestDto request = (StudentRequestDto) input.readObject();
-                    ValidationResponseDto response = processStudentData(request);
-                    output.writeObject(response);
-                    output.flush();
-                } catch (IOException | ClassNotFoundException e) {
-                    logger.log(Level.INFO, "EEE-error " + e.getMessage(), e);
-                    e.printStackTrace();
-                } catch (ValidationException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    @PostMapping("/validateStudentData")
+    public ResponseEntity<ValidationResponseDto> validateStudentData(@RequestBody StudentRequestDto request) {
+        ValidationResponseDto response = handleValidationRequest(request);
+        return ResponseEntity.ok(response);
+    }
+
+    public ValidationResponseDto handleValidationRequest(StudentRequestDto request) {
+        try {
+            return ministryService.validateStudentData(request);
+        } catch (ValidationException e) {
+            return new ValidationResponseDto(false, e.getMessage());
         }
     }
+
+
+
+
+
 }

@@ -2,22 +2,38 @@ package diploma_validator;
 
 import console.Console;
 import console.ConsoleManager;
+import controller.DiplomaController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.core.JdbcTemplate;
-import repository.StudentRepository;
-import repository.impl.StudentRepositoryImpl;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import repository.impl.StudentRepositoryJPA;
 import service.StudentService;
-import transport.client.SocketClient;
-import transport.client.impl.SocketClientImpl;
+import validator.StudentValidator;
 
 import java.io.IOException;
 import java.util.Properties;
 
 @SpringBootApplication
+@EntityScan(basePackages = "repository.entity")
+@EnableJpaRepositories(basePackages = "repository.impl")
+@ComponentScan("controller")
+@ComponentScan("validator")
 public class DiplomaValidatorApp implements CommandLineRunner {
+
+    @Autowired
+    private StudentRepositoryJPA studentRepositoryJPA;
+
+    @Autowired
+    private StudentValidator studentValidator;
+
+    @Autowired
+    private DiplomaController diplomaController;
+
 
     public static void main(String[] args) {
         SpringApplication.run(DiplomaValidatorApp.class, args);
@@ -31,26 +47,14 @@ public class DiplomaValidatorApp implements CommandLineRunner {
         return properties;
     }
 
-    //TODO: Do with JPA
-    //TODO: not inject bean in Application class
-    @Bean
-    public JdbcTemplate jdbcTemplate(org.springframework.jdbc.datasource.DriverManagerDataSource dataSource) {
-        return new JdbcTemplate(dataSource);
-    }
+
+
+
 
     //TODO: not inject bean in Application class
     @Bean
-    public StudentRepository studentRepository(JdbcTemplate jdbcTemplate) {
-        return new StudentRepositoryImpl(jdbcTemplate);
-    }
-
-    //TODO: not inject bean in Application class
-    @Bean
-    public StudentService studentService(StudentRepository studentRepository,
-                                         SocketClient internalProcessorClient,
-                                         SocketClient externalProcessorClient,
-                                         SocketClient monitoringClient) {
-        return new StudentService(studentRepository, internalProcessorClient, externalProcessorClient, monitoringClient);
+    public StudentService studentService(StudentRepositoryJPA studentRepositoryJPA, StudentValidator studentValidator) {
+        return new StudentService(studentRepositoryJPA, studentValidator);
     }
 
     //TODO: not inject bean in Application class
@@ -63,42 +67,17 @@ public class DiplomaValidatorApp implements CommandLineRunner {
     public ConsoleManager consoleManager(StudentService studentService, Console console) {
         return new ConsoleManager(studentService, console);
     }
-    @Bean
-    public SocketClient internalProcessorClient(Properties applicationProperties) {
-        return new SocketClientImpl(applicationProperties.getProperty("internalProcessor.host"),
-                Integer.parseInt(applicationProperties.getProperty("internalProcessor.port")));
-    }
 
-    @Bean
-    public SocketClient externalProcessorClient(Properties applicationProperties) {
-        return new SocketClientImpl(applicationProperties.getProperty("externalProcessor.host"),
-                Integer.parseInt(applicationProperties.getProperty("externalProcessor.port")));
-    }
 
-    @Bean
-    public SocketClient monitoringClient(Properties applicationProperties) {
-        return new SocketClientImpl(applicationProperties.getProperty("monitoring.host"),
-                Integer.parseInt(applicationProperties.getProperty("monitoring.port")));
-    }
 
-    @Bean
-    public org.springframework.jdbc.datasource.DriverManagerDataSource dataSource(Properties applicationProperties) {
-        org.springframework.jdbc.datasource.DriverManagerDataSource dataSource = new org.springframework.jdbc.datasource.DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl(applicationProperties.getProperty("db.url"));
-        dataSource.setUsername(applicationProperties.getProperty("db.username"));
-        dataSource.setPassword(applicationProperties.getProperty("db.password"));
-        return dataSource;
-    }
 
     @Override
     public void run(String... args) throws Exception {
-        ConsoleManager consoleManager = consoleManager(studentService(
-                studentRepository(jdbcTemplate(null)),
-                internalProcessorClient(applicationProperties()),
-                externalProcessorClient(applicationProperties()),
-                monitoringClient(applicationProperties())
-        ), console());
+        ConsoleManager consoleManager = consoleManager(studentService(studentRepositoryJPA, studentValidator), console());
         consoleManager.start();
+        diplomaController.start();
     }
+
+
+
 }

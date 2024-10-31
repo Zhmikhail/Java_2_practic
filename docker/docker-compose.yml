@@ -14,23 +14,25 @@ services:
       - ./data/postgres:/var/lib/postgresql/data
 
   mongo-main:
-    image: mongo
+    image: mongo:6.0
     container_name: mongo-university
     ports:
-      - "27017:27017"
+      - "27019:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: university
     volumes:
       - ./mongo-university-data:/data/db
 
   mongo-validation:
-    image: mongo
+    image: mongo:6.0
     container_name: mongo-ministry
     ports:
       - "27018:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: ministry
     volumes:
       - ./mongo-ministry-data:/data/db

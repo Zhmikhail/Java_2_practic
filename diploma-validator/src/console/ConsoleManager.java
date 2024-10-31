@@ -60,13 +60,14 @@ public class ConsoleManager {
     }
 
     private void handleStudentInput() {
-        try {
-            StudentEntity student = collectStudentData(false, null);
-            studentService.processStudentData(student.getName(), student.getAge(), student.getUniversity(), student.getSpecialtyCode(), student.getDiplomaNumber());
-            console.print(ConsoleMessages.OUTPUT_SUCCESS.getMessage());
-        } catch (Exception e) {
-            console.print(ConsoleMessages.ERROR_PROCESSING.getMessage() + e.getMessage());
-        }
+//        try {
+//            StudentEntity student = collectStudentData(false, null);
+//            studentService.processStudentData(student.getName(), student.getAge(), student.getUniversity(), student.getSpecialtyCode(), student.getDiplomaNumber());
+//            console.print(ConsoleMessages.OUTPUT_SUCCESS.getMessage());
+//        } catch (Exception e) {
+//            console.print(ConsoleMessages.ERROR_PROCESSING.getMessage() + e.getMessage());
+//        }
+        return;
     }
 
 

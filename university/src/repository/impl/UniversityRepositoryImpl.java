@@ -1,8 +1,9 @@
 package repository.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import repository.entity.StudentEntity;
 import repository.entity.UniversityEntity;
 import repository.UniversityRepository;
 
@@ -19,24 +20,11 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 import repository.entity.UniversityEntity;
 
-import java.util.List;
+
+
 
 @Repository
-public class UniversityRepositoryImpl implements UniversityRepository {
+public interface UniversityRepositoryImpl extends MongoRepository<UniversityEntity, Integer> {
 
-    @Autowired
-    private MongoTemplate mongoTemplateUniversity;
-
-    @Override
-    public List<UniversityEntity> findAll() {
-        return mongoTemplateUniversity.findAll(UniversityEntity.class, "students");
-    }
-
-    @Override
-    public Optional<UniversityEntity> findByName(String name) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("university").is(name));
-        UniversityEntity university = mongoTemplateUniversity.findOne(query, UniversityEntity.class, "students");
-        return Optional.ofNullable(university);
-    }
+    Optional<UniversityEntity> findByUniversity(String university);
 }

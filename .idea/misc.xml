@@ -4,8 +4,10 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/diploma-validator/pom.xml" />
         <option value="$PROJECT_DIR$/university/pom.xml" />
+        <option value="$PROJECT_DIR$/ministry-of-education/pom.xml" />
+        <option value="$PROJECT_DIR$/diploma-validator/pom.xml" />
+        <option value="$PROJECT_DIR$/common/pom.xml" />
       </list>
     </option>
   </component>

@@ -16,6 +16,9 @@ public class StudentRequestDto implements Serializable {
         return name;
     }
 
+    public StudentRequestDto() {
+    }
+
     public void setName(String name) {
         this.name = name;
     }

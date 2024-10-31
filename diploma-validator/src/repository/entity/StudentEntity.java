@@ -1,19 +1,24 @@
 package repository.entity;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.*;
+import java.io.Serializable;
 
-import java.util.UUID;
-
-@Document(collection = "students")
-public class StudentEntity {
+@Entity
+@Table(name = "students")
+public class StudentEntity implements Serializable {
 
     @Id
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private int age;
+    @Column(nullable = false)
     private String university;
+    @Column(nullable = false)
     private String specialtyCode;
+    @Column(nullable = false)
     private int diplomaNumber;
 
     public StudentEntity(String name, int age, String university, String specialtyCode, int diplomaNumber) {
@@ -33,7 +38,6 @@ public class StudentEntity {
         this.university = university;
         this.specialtyCode = specialtyCode;
         this.diplomaNumber = diplomaNumber;
-
     }
 
     public Integer getId() { return id; }
@@ -42,6 +46,7 @@ public class StudentEntity {
     public String getUniversity() { return university; }
     public String getSpecialtyCode() { return specialtyCode; }
     public int getDiplomaNumber() { return diplomaNumber; }
+
     public void setId(Integer id) {
         this.id = id;
     }
